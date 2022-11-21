@@ -1,4 +1,5 @@
 const express = require('express');
+const fs = require('fs');
 const path = require('path');
 // creating the web server obj for organizing
 const jsonData = require('./Develop/db/db.json');
@@ -16,7 +17,23 @@ app.use(express.urlencoded({ extended: true }));
 // installing middleware
 app.use(express.static('public'));
 
-notes = []
+noteArr = []
+
+function writeJsonFile(notes){
+
+  json =`[
+    {
+        "id": "${notes.id}",
+        "title":"${notes.title}",
+        "text":"${notes.text}"
+    }
+]
+`
+  return fs.writeFile("./Develop/db/db.json", json, (err) => {
+    if(err) return console.error(err);
+    console.log("Success!");
+  });
+}
 
 app.get('/', (req, res) => res.send('Navigate to /send or /routes'));
 
@@ -40,7 +57,7 @@ app.get('/api/notes', (req, res) => {
 app.post('/api/notes', (req, res) => {
     // Log that a POST request was received
     console.info(`${req.method} request received to add a note`);
-    console.log(req.body)
+    // console.log(req.body)
    
     // Destructuring assignment for the items in req.body
     const {title, text} = req.body;
@@ -54,15 +71,15 @@ app.post('/api/notes', (req, res) => {
         title,
         text,
       };
-      console.log(newNote)
+      // console.log(newNote)
       const response = {
         status: 'success',
         body: newNote,
       };
-      notes.push({newNote})
-      console.log(notes)
-      
-      
+      noteArr.push(newNote);
+      console.log(noteArr)
+      writeJsonFile(noteArr)
+
     // JSON is a string, databases/file services/web servers work best with strings
     
     res.status(201).json(response);
