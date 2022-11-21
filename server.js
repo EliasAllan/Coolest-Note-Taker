@@ -1,7 +1,7 @@
 const express = require('express');
 const fs = require('fs');
 const path = require('path');
-const jsonData = require('./Develop/db/db.json');
+const data = require('./Develop/db/db.json');
 const randomId = require('./helper/randomId.js');
 
 // setting computer port number for service
@@ -18,20 +18,12 @@ app.use(express.urlencoded({ extended: true }));
 // installing middleware
 app.use(express.static('public'));
 
-var noteArr = []
 
-function writeJsonFile(notes){
-
-  json =`[
-    {
-        "id": "${notes.id}",
-        "title":"${notes.title}",
-        "text":"${notes.text}"
-    }
-]
-`
-  return fs.writeFile("./Develop/db/db.json", json, (err) => {
+function writeJsonFile(){
+  
+  return fs.writeFile("./Develop/db/db.json", JSON.stringify(data), (err) => {
     if(err) return console.error(err);
+    console.log(data);
     console.log("Success!");
   });
 }
@@ -44,14 +36,28 @@ app.get('/notes', (req, res) =>
 
 
 app.get('/api/notes', (req, res) => {
-    res.status(200).json(jsonData);
+  console.log("In GET NOTES ROUTE")
+
+  // Tutor notes
+  // make a request for our dataset (because thigns change and update)
+  // /*fs.readFile('./Develop/db/db.json', function(error, data) {
+  //     if(error) {
+  //       console.log(error)
+  //     }
+
+  //     console.log(data);
+  //     console.log(typeof data);
+  //     res.status(200).json(data);
+  //   });
+  //   */
+    
+   return res.status(200).json(data);
   });
   
 
 app.post('/api/notes', (req, res) => {
     // Log that a POST request was received
     console.info(`${req.method} request received to add a note`);
-    // console.log(req.body)
    
     // Destructuring assignment for the items in req.body
     const {title, text} = req.body;
@@ -70,9 +76,10 @@ app.post('/api/notes', (req, res) => {
         status: 'success',
         body: newNote,
       };
-      noteArr.push(newNote)
-      console.log(noteArr)
-      writeJsonFile(noteArr)
+      
+      data.push(newNote)
+      console.log()
+      writeJsonFile()
 
     // JSON is a string, databases/file services/web servers work best with strings
     
