@@ -1,9 +1,10 @@
 const express = require('express');
 const fs = require('fs');
 const path = require('path');
-// creating the web server obj for organizing
 const jsonData = require('./Develop/db/db.json');
 const randomId = require('./helper/randomId.js');
+
+// setting computer port number for service
 const PORT = 3001;
 
 const app = express();
@@ -11,13 +12,13 @@ const app = express();
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-// setting computer port number for service
+
 
 
 // installing middleware
 app.use(express.static('public'));
 
-noteArr = []
+var noteArr = []
 
 function writeJsonFile(notes){
 
@@ -42,13 +43,6 @@ app.get('/notes', (req, res) =>
 );
 
 
-
-// app.get('/api/notes', (req, res) =>
-//   res.sendFile(path.join(__dirname, ''))
-// );
-
-// app.get('/api/notes', (req, res) => res.json(jsonData));
-
 app.get('/api/notes', (req, res) => {
     res.status(200).json(jsonData);
   });
@@ -71,12 +65,12 @@ app.post('/api/notes', (req, res) => {
         title,
         text,
       };
-      // console.log(newNote)
+
       const response = {
         status: 'success',
         body: newNote,
       };
-      noteArr.push(newNote);
+      noteArr.push(newNote)
       console.log(noteArr)
       writeJsonFile(noteArr)
 
