@@ -9,15 +9,11 @@ const PORT = 3001;
 
 const app = express();
 
-
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-
-
 // installing middleware
 app.use(express.static('public'));
-
 
 function writeJsonFile(){
   
@@ -37,19 +33,6 @@ app.get('/notes', (req, res) =>
 
 app.get('/api/notes', (req, res) => {
   console.log("In GET NOTES ROUTE")
-
-  // Tutor notes
-  // make a request for our dataset (because thigns change and update)
-  // /*fs.readFile('./Develop/db/db.json', function(error, data) {
-  //     if(error) {
-  //       console.log(error)
-  //     }
-
-  //     console.log(data);
-  //     console.log(typeof data);
-  //     res.status(200).json(data);
-  //   });
-  //   */
     
    return res.status(200).json(data);
   });
@@ -61,8 +44,7 @@ app.post('/api/notes', (req, res) => {
    
     // Destructuring assignment for the items in req.body
     const {title, text} = req.body;
-    
-    
+       
     // If all the required properties are present
     if (title && text) {
       // Variable for the object we will save
