@@ -14,7 +14,7 @@ No need to install , just visit the website
 Click get started to start, enter note title and note text then hit the save button on the top right of the screen
 
 ## Contributing 
-E-mail me if you want to contribute. My email will be in the contact me section
+E-mail me if you want to contribute. My email will be in the questions section
 
 ## Tests
 no tests were written for this application
