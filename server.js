@@ -5,7 +5,7 @@ const data = require('./Develop/db/db.json');
 const randomId = require('./helper/randomId.js');
 
 // setting computer port number for service
-const PORT = 3001;
+const PORT = process.env.PORT || 3001;
 
 const app = express();
 
@@ -62,6 +62,8 @@ app.post('/api/notes', (req, res) => {
       data.push(newNote)
       console.log()
       writeJsonFile()
+
+app.delete()
 
     // JSON is a string, databases/file services/web servers work best with strings
     
