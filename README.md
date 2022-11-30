@@ -19,6 +19,11 @@ E-mail me if you want to contribute. My email will be in the questions section
 ## Tests
 no tests were written for this application
 
+## Screenshots
+
+
+![Screenshot of the application](./Assets/Screenshot241.png)
+
 ## License
 This application is covered by the MIT license
 
